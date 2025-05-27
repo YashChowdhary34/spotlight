@@ -5,9 +5,6 @@ export default async function AuthCallbackPage() {
   // Authentication
   const auth = await onAuthenticateUser();
 
-  console.log("Auth response:", auth);
-  console.log("auth.user:", auth.user);
-
   if (auth.status === 200 || auth.status === 201) {
     if (auth.user?.workspace && auth.user.workspace.id) {
       redirect(`/dashboard/${auth.user.workspace.id}`);
@@ -17,4 +14,6 @@ export default async function AuthCallbackPage() {
   } else {
     redirect("/auth/sign-in");
   }
+
+  return null;
 }

@@ -4,7 +4,7 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // (Optional) Skip type-checking errors during production build
+  // Skip type-checking errors during production build
   typescript: {
     ignoreBuildErrors: true,
   },
