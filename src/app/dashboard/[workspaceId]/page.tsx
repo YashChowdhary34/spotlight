@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Sidebar from "@/components/global/layout/Sidebar";
 import React from "react";
 
