@@ -28,7 +28,7 @@ enum ClaimStatus {
 model User {
   // Primary & Identity
   id             String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  email          String             @unique
+  email          String             //@unique
   clerkId        String             @unique
 
   // Profile
@@ -47,7 +47,7 @@ model User {
   referralGot    Referral?          @relation("ReferredUserLink")
 
   // Workspace & Pocket Claims
-  workspace      WorkSpace          @relation(fields: [id], references: [userId])
+  workspace      WorkSpace?
 
   // Chat messaging
   sentMessages     ChatMessage[]    @relation("SentMessages")
@@ -71,7 +71,7 @@ model User {
 }
 
 model Referral {
-  id           String   @id @default(cuid())
+  id             String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   code         String   @unique
 
   // Who sent the referral
@@ -86,10 +86,10 @@ model Referral {
 }
 
 model WorkSpace {
-  id                         String              @id @default(uuid()) @db.Uuid
+  id             String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 
   // Owner
-  user                       User?                
+  User                       User?                @relation(fields: [userId], references: [id])
   userId                     String?              @unique @db.Uuid
 
   // Affiliate metrics
@@ -105,7 +105,7 @@ model WorkSpace {
 }
 
 model PocketMoneyClaim {
-  id           String       @id @default(cuid())
+  id             String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 
   // Which workspace it belongs to
   workspace    WorkSpace    @relation(fields: [workspaceId], references: [id])
@@ -121,7 +121,7 @@ model PocketMoneyClaim {
 }
 
 model ChatMessage {
-  id             String        @id @default(cuid())
+ id             String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 
   // Sender & recipient
   sender         User          @relation("SentMessages", fields: [senderId], references: [id])
@@ -139,7 +139,7 @@ model ChatMessage {
 }
 
 model Notification {
-  id        String    @id @default(cuid())
+  id             String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   user      User      @relation(fields: [userId], references: [id])
   userId    String    @db.Uuid
   type      String
@@ -149,7 +149,7 @@ model Notification {
 }
 
 model ChatThread {
-  id            String        @id @default(uuid()) @db.Uuid
+  id             String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 
   // Who started it (user side)
   user         User          @relation("UserThreads", fields: [userId], references: [id])
@@ -169,7 +169,7 @@ model ChatThread {
 }
 
 model AdminAction {
-  id           String       @id @default(cuid())
+  id             String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 
   // Which admin performed it
   admin        User         @relation("AdminActions", fields: [adminId], references: [id])

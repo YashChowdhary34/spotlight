@@ -43,8 +43,6 @@ export const onAuthenticateUser = async () => {
       },
       include: {
         workspace: true,
-        sentMessages: true,
-        receivedMessages: true,
       },
     });
 

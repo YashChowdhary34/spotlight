@@ -6,6 +6,7 @@ export default async function AuthCallbackPage() {
   const auth = await onAuthenticateUser();
 
   console.log("Auth response:", auth);
+  console.log("auth.user:", auth.user);
 
   if (auth.status === 200 || auth.status === 201) {
     if (auth.user?.workspace && auth.user.workspace.id) {
