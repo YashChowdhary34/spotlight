@@ -17,6 +17,8 @@ export const onAuthenticateUser = async () => {
       },
       include: {
         workspace: true,
+        sentMessages: true,
+        receivedMessages: true,
       },
     });
     if (userExists) {
@@ -41,6 +43,8 @@ export const onAuthenticateUser = async () => {
       },
       include: {
         workspace: true,
+        sentMessages: true,
+        receivedMessages: true,
       },
     });
 
