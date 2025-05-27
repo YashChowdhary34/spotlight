@@ -10,8 +10,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Spotlight",
-  description: "Share & Earn with Spotlight",
+  title: "Spotlight - The fastest path to financial freedom",
+  description:
+    "No hidden fees. No credit checks. Share & Earn with Spotlight today!",
 };
 
 export default function RootLayout({
