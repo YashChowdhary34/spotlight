@@ -81,13 +81,13 @@ const Sidebar = ({ workspaceId }: Props) => {
   const { user } = useUser();
   const router = useRouter();
   const handleNavigation = (href: string) => {
-    router.push(`/dashboard/${workspaceId}/${href}`);
+    router.replace(`/dashboard/${workspaceId}/${href}`);
   };
 
   return (
     <>
       {/* Mobile Menu Toggle */}
-      <div className="fixed top-0 left-0 z-50 flex h-16 w-full items-center justify-between border-b border-gray-500 bg-slate-800 px-4 md:hidden">
+      <div className="fixed top-0 left-0 z-40 flex h-16 w-full items-center justify-between border-b border-zinc-700 bg-zinc-800 px-4 md:hidden">
         <div className="flex items-center">
           <Link
             href="/"
@@ -107,7 +107,7 @@ const Sidebar = ({ workspaceId }: Props) => {
         </div>
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="rounded-md p-2 text-white hover:bg-slate-900"
+          className="rounded-md p-2 text-white hover:bg-zinc-900"
         >
           {isMobileMenuOpen ? (
             <X className="h-6 w-6" />
@@ -120,8 +120,8 @@ const Sidebar = ({ workspaceId }: Props) => {
       {/* Mobile Menu */}
       <div
         className={cn(
-          "fixed inset-0 z-30 transform bg-slate-800 transition-transform duration-300 ease-in-out md:hidden",
-          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+          "fixed inset-0 right-0 z-30 transform bg-zinc-800 transition-transform duration-300 ease-in-out md:hidden",
+          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
         <div className="mt-16 h-[calc(100vh-4rem)] overflow-y-auto pb-20">
@@ -157,7 +157,7 @@ const Sidebar = ({ workspaceId }: Props) => {
 
               <div>
                 <p className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-white">
-                  Teams
+                  Finances
                 </p>
                 <div className="space-y-1">
                   {teamNavItems.map((item) => (
@@ -211,10 +211,10 @@ const Sidebar = ({ workspaceId }: Props) => {
       </div>
 
       {/* Desktop Sidebar */}
-      <div className="hidden h-screen w-64 flex-shrink-0 border-r border-gray-500 bg-slate-800 md:block">
+      <div className="hidden h-screen w-64 flex-shrink-0 border-r border-zinc-700 bg-zinc-800 md:block">
         <div className="flex h-full flex-col">
           {/* Logo */}
-          <div className="flex h-16 items-center border-b border-gray-500 px-6">
+          <div className="flex h-16 items-center border-b border-zinc-700 px-6">
             <Link
               href="/"
               onClick={(e) => {
@@ -264,7 +264,7 @@ const Sidebar = ({ workspaceId }: Props) => {
 
               <div>
                 <p className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-white">
-                  Teams
+                  Finances
                 </p>
                 <div className="space-y-1">
                   {teamNavItems.map((item) => (
@@ -291,7 +291,7 @@ const Sidebar = ({ workspaceId }: Props) => {
             </nav>
 
             {/* Bottom Utility Links */}
-            <div className="border-t border-gray-500 px-4 py-4">
+            <div className="border-t border-zinc-700 px-4 py-4">
               <div className="space-y-1">
                 {utilityNavItems.map((item) => (
                   <Link

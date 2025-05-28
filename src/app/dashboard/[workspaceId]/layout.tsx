@@ -1,5 +1,6 @@
 import { onAuthenticateUser } from "@/actions/user";
 import { verifyAccessToWorkspace } from "@/actions/workspace";
+import Sidebar from "@/components/global/layout/Sidebar";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -22,7 +23,12 @@ const layout = async ({ params: { workspaceId }, children }: Props) => {
 
   // wip: react-query to fetch workspace data
 
-  return <div className="w-full h-screen">{children}</div>;
+  return (
+    <div className="w-full h-screen">
+      <Sidebar workspaceId={workspaceId} />
+      {children}
+    </div>
+  );
 };
 
 export default layout;
