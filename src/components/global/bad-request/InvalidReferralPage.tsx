@@ -3,12 +3,14 @@ import Link from "next/link";
 import React from "react";
 import PlaceholderImage from "@/assets/temp/invalidReferralCodeImage.png";
 
-const InvalidReferralPage = () => {
+type Props = {
+  message: string;
+};
+
+const InvalidReferralPage = ({ message }: Props) => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 text-center mx-auto">
-      <h1 className="text-2xl md:text-3xl font-bold mb-4">
-        Invalid Affiliate Code!
-      </h1>
+      <h1 className="text-2xl md:text-3xl font-bold mb-4">{message}</h1>
 
       <p className="text-sm md:text-base mb-8">
         We apologize for any inconvenience this may have caused.
@@ -23,7 +25,7 @@ const InvalidReferralPage = () => {
             alt="Not Found Image"
             width={300}
             height={300}
-            className="w-full h-full"
+            className="w-full h-full bg-gray-500"
             priority
           />
         </div>

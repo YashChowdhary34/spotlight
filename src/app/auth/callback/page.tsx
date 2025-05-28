@@ -1,9 +1,20 @@
-export const dynamic = "force-dynamic";
-
+import { addReferral } from "@/actions/affiliate";
 import { onAuthenticateUser } from "@/actions/user";
 import { redirect } from "next/navigation";
 
-export default async function AuthCallbackPage() {
+type searchParams = {
+  affiliateCode?: string;
+  referrerId?: string;
+};
+
+export default async function AuthCallbackPage({
+  affiliateCode,
+  referrerId,
+}: searchParams) {
+  if (affiliateCode) {
+    await addReferral(affiliateCode, referrerId);
+  }
+
   // Authentication
   const auth = await onAuthenticateUser();
 

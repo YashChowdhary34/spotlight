@@ -143,7 +143,7 @@ const Sidebar = ({ workspaceId }: Props) => {
                       }}
                       className={cn(
                         "flex items-center rounded-md px-2 py-2 text-sm font-medium transition-colors",
-                        pathname === item.href
+                        pathname === `/dashboard/${workspaceId}/${item.href}`
                           ? "bg-gray-100 text-gray-900"
                           : "text-white/70 hover:bg-gray-50 hover:text-gray-900"
                       )}
@@ -171,7 +171,7 @@ const Sidebar = ({ workspaceId }: Props) => {
                       }}
                       className={cn(
                         "flex items-center rounded-md px-2 py-2 text-sm font-medium transition-colors",
-                        pathname === item.href
+                        pathname === `/dashboard/${workspaceId}/${item.href}`
                           ? "bg-gray-100 text-gray-900"
                           : "text-white/70 hover:bg-gray-50 hover:text-gray-900"
                       )}
@@ -195,7 +195,7 @@ const Sidebar = ({ workspaceId }: Props) => {
                     }}
                     className={cn(
                       "flex items-center rounded-md px-2 py-2 text-sm font-medium transition-colors",
-                      pathname === item.href
+                      pathname === `/dashboard/${workspaceId}/${item.href}`
                         ? "bg-gray-100 text-gray-900"
                         : "text-white/80 hover:bg-gray-50 hover:text-gray-900"
                     )}
@@ -250,7 +250,7 @@ const Sidebar = ({ workspaceId }: Props) => {
                       }}
                       className={cn(
                         "flex items-center rounded-md px-2 py-2 text-sm font-medium transition-colors",
-                        pathname === item.href
+                        pathname === `/dashboard/${workspaceId}/${item.href}`
                           ? "bg-gray-100 text-gray-900"
                           : "text-white/70 hover:bg-gray-50 hover:text-gray-900"
                       )}
@@ -277,7 +277,7 @@ const Sidebar = ({ workspaceId }: Props) => {
                       }}
                       className={cn(
                         "flex items-center rounded-md px-2 py-2 text-sm font-medium transition-colors",
-                        pathname === item.href
+                        pathname === `/dashboard/${workspaceId}/${item.href}`
                           ? "bg-gray-100 text-gray-900"
                           : "text-white/70 hover:bg-gray-50 hover:text-gray-900"
                       )}
@@ -303,7 +303,7 @@ const Sidebar = ({ workspaceId }: Props) => {
                     }}
                     className={cn(
                       "flex items-center rounded-md px-2 py-2 text-sm font-medium transition-colors",
-                      pathname === item.href
+                      pathname === `/dashboard/${workspaceId}/${item.href}`
                         ? "bg-gray-100 text-gray-900"
                         : "text-white/80 hover:bg-gray-50 hover:text-gray-900"
                     )}

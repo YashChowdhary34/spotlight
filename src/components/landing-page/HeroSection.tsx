@@ -110,21 +110,21 @@ const HeroSection = () => {
                 alt="User 1"
                 width={50}
                 height={50}
-                className="rounded-full border-2 border-black"
+                className="rounded-full border-2 border-black bg-gray-400"
               />
               <Image
                 src="/placeholder.svg?height=50&width=50"
                 alt="User 2"
                 width={50}
                 height={50}
-                className="rounded-full border-2 border-black"
+                className="rounded-full border-2 border-black bg-gray-400"
               />
               <Image
                 src="/placeholder.svg?height=50&width=50"
                 alt="User 3"
                 width={50}
                 height={50}
-                className="rounded-full border-2 border-black"
+                className="rounded-full border-2 border-black bg-gray-400"
               />
             </div>
             <div>

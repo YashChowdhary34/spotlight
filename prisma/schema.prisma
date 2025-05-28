@@ -43,7 +43,7 @@ model User {
   balance        Float?             @default(0)
 
   // Affiliate
-  affiliateCode  String?            @unique
+  affiliateCode  String?            @default(dbgenerated("gen_random_uuid()")) @db.Uuid @unique
   referralsMade  Referral[]         @relation("ReferralsByUser")
   referralGot    Referral?          @relation("ReferredUserLink")
 
@@ -73,7 +73,7 @@ model User {
 
 model Referral {
   id             String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  code         String   @unique
+  code         String   @unique   //affiliate code of the referring user
 
   // Who sent the referral
   referrer     User     @relation("ReferralsByUser", fields: [referrerId], references: [id])
