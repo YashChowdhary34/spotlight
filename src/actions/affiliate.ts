@@ -39,6 +39,7 @@ export const addReferral = async (
   referrerId?: string
 ) => {
   try {
+    console.log("addReferral is running");
     const user = await currentUser();
     if (!user) {
       return { status: 401, message: "User not authenticated" };
@@ -77,4 +78,16 @@ export const addReferral = async (
       message: "Exception occured try again",
     };
   }
+};
+
+export const getAffiliateCodeForCurrentUser = async () => {
+  const user = await currentUser();
+  if (!user) return null;
+
+  const isUser = await client.user.findUnique({
+    where: { clerkId: user.id },
+    select: { affiliateCode: true },
+  });
+
+  return isUser?.affiliateCode ?? null;
 };

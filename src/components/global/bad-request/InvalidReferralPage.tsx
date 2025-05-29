@@ -15,7 +15,9 @@ const InvalidReferralPage = ({ message }: Props) => {
       <p className="text-sm md:text-base mb-8">
         We apologize for any inconvenience this may have caused.
         <br />
-        Please verify the affiliate link.
+        {message === "Affiliate Code is invalid"
+          ? "Please verify the affiliate link."
+          : ""}
       </p>
 
       <div className="relative w-full aspect-square max-w-[300px] mb-8">

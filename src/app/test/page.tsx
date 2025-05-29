@@ -7,7 +7,7 @@ const InvalidReferralPage = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 text-center mx-auto">
       <h1 className="text-2xl md:text-3xl font-bold mb-4">
-        Invalid Affiliate Code!
+        Can&apos;t get your affiliate code at the moment
       </h1>
 
       <p className="text-sm md:text-base mb-8">

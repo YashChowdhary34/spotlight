@@ -4,7 +4,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const Layout = ({ children }: Props) => {
+const Layout = async ({ children }: Props) => {
   return <div>{children}</div>;
 };
 

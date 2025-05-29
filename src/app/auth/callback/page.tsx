@@ -12,8 +12,17 @@ export default async function AuthCallbackPage({
   referrerId,
 }: searchParams) {
   if (affiliateCode) {
-    await addReferral(affiliateCode, referrerId);
+    const newReferral = await addReferral(affiliateCode, referrerId);
+    console.log(
+      "New Referral added! \n affiliateCode:",
+      affiliateCode,
+      "referrerId:",
+      referrerId
+    );
+    console.log(newReferral.status);
   }
+
+  console.log("callback page is running");
 
   // Authentication
   const auth = await onAuthenticateUser();
