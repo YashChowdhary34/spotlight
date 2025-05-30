@@ -9,14 +9,21 @@ type Props = {
 
 const AffiliateEntryPage = async ({ params: { affiliateCode } }: Props) => {
   const validAffiliateCode = await verifyAffiliateCode(affiliateCode);
-  if (validAffiliateCode.status !== 200) {
+  if (validAffiliateCode.status !== 200 || !validAffiliateCode.referrer) {
     return <InvalidReferralPage message={validAffiliateCode.message} />;
   }
+
+  console.log(
+    "this is from /affiliates/[affiliateCode]/page:",
+    affiliateCode,
+    "referrer: ",
+    validAffiliateCode.referrer.id
+  );
 
   return (
     <SignUpWithReferral
       affiliateCode={affiliateCode}
-      referrerId={validAffiliateCode.referrer?.id}
+      referrerId={validAffiliateCode.referrer.id}
     />
   );
 };

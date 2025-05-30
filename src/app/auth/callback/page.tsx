@@ -8,25 +8,33 @@ type searchParams = {
 };
 
 export default async function AuthCallbackPage({
-  affiliateCode,
-  referrerId,
-}: searchParams) {
-  if (affiliateCode) {
-    const newReferral = await addReferral(affiliateCode, referrerId);
+  searchParams,
+}: {
+  searchParams: searchParams;
+}) {
+  const auth = await onAuthenticateUser();
+
+  console.log(searchParams);
+
+  if (searchParams.affiliateCode && searchParams.referrerId) {
+    const newReferral = await addReferral(
+      searchParams.affiliateCode,
+      searchParams.referrerId
+    );
     console.log(
       "New Referral added! \n affiliateCode:",
-      affiliateCode,
+      searchParams.affiliateCode,
       "referrerId:",
-      referrerId
+      searchParams.referrerId,
+      "status:",
+      newReferral.status
     );
     console.log(newReferral.status);
   }
 
   console.log("callback page is running");
 
-  // Authentication
-  const auth = await onAuthenticateUser();
-
+  // redirect logic
   if (auth.status === 200 || auth.status === 201) {
     if (auth.user?.workspace && auth.user.workspace.id) {
       redirect(`/dashboard/${auth.user.workspace.id}`);

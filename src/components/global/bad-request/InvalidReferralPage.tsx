@@ -27,7 +27,7 @@ const InvalidReferralPage = ({ message }: Props) => {
             alt="Not Found Image"
             width={300}
             height={300}
-            className="w-full h-full bg-gray-500"
+            className="w-full h-full"
             priority
           />
         </div>

@@ -10,9 +10,7 @@ const SignUpWithReferral = ({ affiliateCode, referrerId }: Props) => {
   return (
     <SignUp
       routing="hash"
-      afterSignOutUrl={`/auth/callback?affiliateCode=${affiliateCode}&referrerId=${
-        referrerId ?? ""
-      }`}
+      forceRedirectUrl={`/auth/callback?affiliateCode=${affiliateCode}&referrerId=${referrerId}`}
     />
   );
 };
