@@ -25,22 +25,22 @@ type NavItem = {
 const mainNavItems: NavItem[] = [
   {
     title: "Home",
-    href: "/home",
+    href: "home",
     icon: House,
   },
   {
     title: "Chat",
-    href: "/chat",
+    href: "chat",
     icon: MessageSquare,
   },
   {
     title: "Affiliate",
-    href: "/affiliate",
+    href: "affiliate",
     icon: SquareArrowUpRight,
   },
   {
     title: "Pocket Money",
-    href: "/pocket-money",
+    href: "pocket-money",
     icon: PiggyBank,
   },
 ];
@@ -48,12 +48,12 @@ const mainNavItems: NavItem[] = [
 const teamNavItems: NavItem[] = [
   {
     title: "Transactions",
-    href: "/payments/transactions",
+    href: "payments/transactions",
     icon: () => <span className="mr-2 h-2 w-2 rounded-full bg-green-500" />,
   },
   {
     title: "Dashboard",
-    href: "/affiliate/dashboard",
+    href: "affiliate/dashboard",
     icon: () => <span className="mr-2 h-2 w-2 rounded-full bg-red-500" />,
   },
 ];
@@ -61,12 +61,12 @@ const teamNavItems: NavItem[] = [
 const utilityNavItems: NavItem[] = [
   {
     title: "Settings",
-    href: "/settings",
+    href: "settings",
     icon: Settings,
   },
   {
     title: "Log Out",
-    href: "/logout",
+    href: "logout",
     icon: LogOut,
   },
 ];
@@ -77,6 +77,7 @@ type Props = {
 
 const Sidebar = ({ workspaceId }: Props) => {
   const pathname = usePathname();
+  console.log("pathname:", pathname);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user } = useUser();
   const router = useRouter();
@@ -144,8 +145,8 @@ const Sidebar = ({ workspaceId }: Props) => {
                       className={cn(
                         "flex items-center rounded-md px-2 py-2 text-sm font-medium transition-colors",
                         pathname === `/dashboard/${workspaceId}/${item.href}`
-                          ? "bg-gray-100 text-gray-900"
-                          : "text-white/70 hover:bg-gray-50 hover:text-gray-900"
+                          ? "bg-gray-200 text-gray-900"
+                          : "text-white/70 hover:bg-white hover:text-gray-900"
                       )}
                     >
                       <item.icon className="mr-3 h-5 w-5" />
@@ -172,8 +173,8 @@ const Sidebar = ({ workspaceId }: Props) => {
                       className={cn(
                         "flex items-center rounded-md px-2 py-2 text-sm font-medium transition-colors",
                         pathname === `/dashboard/${workspaceId}/${item.href}`
-                          ? "bg-gray-100 text-gray-900"
-                          : "text-white/70 hover:bg-gray-50 hover:text-gray-900"
+                          ? "bg-gray-200 text-gray-900"
+                          : "text-white/70 hover:bg-white hover:text-gray-900"
                       )}
                     >
                       <item.icon className="mr-3 h-5 w-5" />
@@ -196,8 +197,8 @@ const Sidebar = ({ workspaceId }: Props) => {
                     className={cn(
                       "flex items-center rounded-md px-2 py-2 text-sm font-medium transition-colors",
                       pathname === `/dashboard/${workspaceId}/${item.href}`
-                        ? "bg-gray-100 text-gray-900"
-                        : "text-white/80 hover:bg-gray-50 hover:text-gray-900"
+                        ? "bg-gray-200 text-gray-900"
+                        : "text-white/80 hover:bg-white hover:text-gray-900"
                     )}
                   >
                     <item.icon className="mr-3 h-5 w-5" />
@@ -251,8 +252,8 @@ const Sidebar = ({ workspaceId }: Props) => {
                       className={cn(
                         "flex items-center rounded-md px-2 py-2 text-sm font-medium transition-colors",
                         pathname === `/dashboard/${workspaceId}/${item.href}`
-                          ? "bg-gray-100 text-gray-900"
-                          : "text-white/70 hover:bg-gray-50 hover:text-gray-900"
+                          ? "bg-gray-200 text-gray-900"
+                          : "text-white/70 hover:bg-white hover:text-gray-900"
                       )}
                     >
                       <item.icon className="mr-3 h-5 w-5" />
@@ -278,8 +279,8 @@ const Sidebar = ({ workspaceId }: Props) => {
                       className={cn(
                         "flex items-center rounded-md px-2 py-2 text-sm font-medium transition-colors",
                         pathname === `/dashboard/${workspaceId}/${item.href}`
-                          ? "bg-gray-100 text-gray-900"
-                          : "text-white/70 hover:bg-gray-50 hover:text-gray-900"
+                          ? "bg-gray-200 text-gray-900"
+                          : "text-white/70 hover:bg-white hover:text-gray-900"
                       )}
                     >
                       <item.icon className="mr-3 h-5 w-5" />
@@ -304,8 +305,8 @@ const Sidebar = ({ workspaceId }: Props) => {
                     className={cn(
                       "flex items-center rounded-md px-2 py-2 text-sm font-medium transition-colors",
                       pathname === `/dashboard/${workspaceId}/${item.href}`
-                        ? "bg-gray-100 text-gray-900"
-                        : "text-white/80 hover:bg-gray-50 hover:text-gray-900"
+                        ? "bg-gray-200 text-gray-900"
+                        : "text-white/80 hover:bg-white hover:text-gray-900"
                     )}
                   >
                     <item.icon className="mr-3 h-5 w-5" />

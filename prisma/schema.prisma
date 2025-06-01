@@ -7,7 +7,10 @@
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
-  importMode = "esm"
+  runtime                = "nodejs"
+  moduleFormat           = "esm"
+  generatedFileExtension = "ts"
+  importFileExtension    = "ts"
 }
 
 datasource db {
@@ -21,9 +24,9 @@ enum Role {
 }
 
 enum ClaimStatus {
+  UNCLAIMED
   PENDING
   APPROVED
-  REJECTED
 }
 
 model User {
@@ -40,23 +43,20 @@ model User {
   // Financials
   deposit        Float?             @default(0)
   withdrawal     Float?             @default(0)
-  balance        Float?             @default(0)
+  profit         Float?             @default(0)
 
   // Affiliate
   affiliateCode  String?            @default(dbgenerated("gen_random_uuid()")) @db.Uuid @unique
   referralsMade  Referral[]         @relation("ReferralsByUser")
-  referralGot    Referral?          @relation("ReferredUserLink")
+  referralGot    Referral?          @relation("ReferredByUser")
 
   // Workspace & Pocket Claims
   workspace      WorkSpace?
 
-  // Chat messaging
-  sentMessages     ChatMessage[]    @relation("SentMessages")
-  receivedMessages ChatMessage[]    @relation("ReceivedMessages")
-
-  // Chat threads
-  userThreads      ChatThread[]     @relation("UserThreads")
-  adminThreads     ChatThread[]     @relation("AdminThreads")
+  // chat
+  chatsAsUser    Chat[]     @relation("UserChats")
+  chatAsAdmin    Chat[]     @relation("AdminChats")
+  messagesSent   Message[]  @relation("MessagesSender")
 
   // Notifications
   notifications     Notification[]
@@ -75,12 +75,12 @@ model Referral {
   id             String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   code         String               //affiliate code of the referring user
 
-  // Who sent the referral
+  // Who sent the referral (many-per-user)
   referrer     User     @relation("ReferralsByUser", fields: [referrerId], references: [id])
   referrerId   String   @db.Uuid
 
   // Who received it (optional, one-per-user)
-  referred     User?    @relation("ReferredUserLink", fields: [referredId], references: [id])
+  referred     User?    @relation("ReferredByUser", fields: [referredId], references: [id])
   referredId   String?  @unique @db.Uuid
 
   createdAt    DateTime @default(now())
@@ -102,7 +102,7 @@ model WorkSpace {
   // Pocket money workflow
   hasClaimedPocketMoney      Boolean             @default(false)
   claimedPocketSteps         Int                 @default(0)
-  pocketClaims        PocketMoneyClaim[]
+  pocketMoneyClaims        PocketMoneyClaim[]
 }
 
 model PocketMoneyClaim {
@@ -113,7 +113,7 @@ model PocketMoneyClaim {
   workspaceId  String       @db.Uuid
 
   step         Int          @default(1)
-  status       ClaimStatus  @default(PENDING)
+  status       ClaimStatus  @default(UNCLAIMED)
 
   requestedAt  DateTime     @default(now())
   reviewETA    DateTime?
@@ -121,54 +121,61 @@ model PocketMoneyClaim {
   paymentDetails Json?
 }
 
-model ChatMessage {
- id             String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+model Chat {
+  id          String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 
-  // Sender & recipient
-  sender         User          @relation("SentMessages", fields: [senderId], references: [id])
-  senderId       String        @db.Uuid
-  recipient      User          @relation("ReceivedMessages", fields: [recipientId], references: [id])
-  recipientId    String        @db.Uuid
+  // the "client" (regular user) side of this chat
+  user        User      @relation("UserChats", fields: [userId], references: [id])
+  userId      String    @db.Uuid
 
-  // Thread context (optional)
-  thread         ChatThread?   @relation("ThreadMessages", fields: [threadId], references: [id])
-  threadId       String?       @db.Uuid
+  admin       User      @relation("AdminChats", fields: [adminId], references: [id])
+  adminId     String    @db.Uuid
 
-  content        String
-  attachmentUrl  String?
-  createdAt      DateTime       @default(now())
+  createdAt   DateTime  @default(now())
+
+  // all message in this conversation
+  messages    Message[]   @relation("ChatMessages")
+
+  // wip: track unread messages for admin and user
+
+
+  @@unique([userId, adminId]) // ensures one chat per user+admin pair
+}
+
+model Message {
+  id      String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  chat    Chat      @relation("ChatMessages", fields: [chatId], references: [id])
+  chatId  String    @db.Uuid
+
+  // user who sent this message could be client or admin
+  sender        User      @relation("MessagesSender", fields: [senderId], references: [id])
+  senderId      String    @db.Uuid
+
+  type      String      // text/file
+  content   String?    
+  fileUrl   String?
+
+  createdAt   DateTime  @default(now())
+
+  // read receipt
+  readAt      DateTime?
+
 }
 
 model Notification {
   id             String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
   user      User      @relation(fields: [userId], references: [id])
   userId    String    @db.Uuid
+
   type      String
   payload   Json
   isRead    Boolean   @default(false)
   createdAt DateTime  @default(now())
 }
 
-model ChatThread {
-  id             String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-
-  // Who started it (user side)
-  user         User          @relation("UserThreads", fields: [userId], references: [id])
-  userId       String        @db.Uuid
-
-  // Optional admin assignment
-  admin        User?         @relation("AdminThreads", fields: [adminId], references: [id])
-  adminId      String?       @db.Uuid
-
-  subject      String?
-  isOpen       Boolean       @default(true)
-
-  messages     ChatMessage[] @relation("ThreadMessages")
-
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-}
-
+// wip:
 model AdminAction {
   id             String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 

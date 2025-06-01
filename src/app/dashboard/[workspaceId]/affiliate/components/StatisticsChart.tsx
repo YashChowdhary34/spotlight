@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -11,13 +8,13 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { ChartTooltip } from "@/components/ui/chart";
+import { ChartTooltipContent } from "@/components/ui/chart";
 
 interface StatisticsData {
   day: string;
-  sales: number;
-  expenses: number;
-  profit: number;
+  clients: number;
+  profits: number;
+  earnings: number;
 }
 
 interface StatisticsChartProps {
@@ -25,15 +22,6 @@ interface StatisticsChartProps {
 }
 
 export function StatisticsChart({ data }: StatisticsChartProps) {
-  const [mounted, setMounted] = useState(false);
-
-  // Prevent hydration errors with SSR
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart
@@ -52,7 +40,7 @@ export function StatisticsChart({ data }: StatisticsChartProps) {
           content={({ active, payload, label }) => {
             if (active && payload && payload.length) {
               return (
-                <ChartTooltip>
+                <ChartTooltipContent>
                   <div className="font-medium">{label}</div>
                   {payload.map((entry, index) => (
                     <div
@@ -68,7 +56,7 @@ export function StatisticsChart({ data }: StatisticsChartProps) {
                       </span>
                     </div>
                   ))}
-                </ChartTooltip>
+                </ChartTooltipContent>
               );
             }
             return null;
@@ -81,25 +69,25 @@ export function StatisticsChart({ data }: StatisticsChartProps) {
           iconSize={8}
         />
         <Bar
-          dataKey="sales"
+          dataKey="clients"
           stackId="a"
           fill="#1e8a7a"
           radius={[4, 4, 0, 0]}
-          name="Sales"
+          name="Clients"
         />
         <Bar
-          dataKey="expenses"
+          dataKey="profits"
           stackId="a"
           fill="#e5a07e"
           radius={[4, 4, 0, 0]}
           name="Expenses"
         />
         <Bar
-          dataKey="profit"
+          dataKey="earnings"
           stackId="a"
           fill="#f8e3c5"
           radius={[4, 4, 0, 0]}
-          name="Profit"
+          name="Earnings"
         />
       </BarChart>
     </ResponsiveContainer>
